@@ -4,8 +4,8 @@ FROM ubuntu:16.4
 
 #install openjdk-8-jre
 RUN apt-get update && \
-    apt-get upgrade && \
-    apt install openjdk-8-jre && \
+    apt-get upgrade -y && \
+    apt install -y openjdk-8-jre && \
     java -version
     
 #cassandra.sources.list 
@@ -17,7 +17,7 @@ RUN curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -  && \
     apt-get update    
     
 #install cassandra    
-RUN apt-get install cassandra    
+RUN apt-get install -y cassandra    
     
 #configuring authentication  
 RUN sed -i 's/authenticator: AllowAllAuthenticator/authenticator: PasswordAuthenticator/g' /etc/cassandra/cassandra.yaml && \
