@@ -10,4 +10,13 @@ RUN echo "deb http://www.apache.org/dist/cassandra/debian 311x main" | tee -a /e
 
 #Cassandra repository keys
   && curl https://www.apache.org/dist/cassandra/KEYS | apt-key add -  && apt-key adv --keyserver pool.sks-keyservers.net --recv-key A278B781FE4B2BDA &&  apt-get update
+  
+#install cassandra    
+RUN apt-get install -y cassandra
+
+#Cassandra Authentication
+RUN  echo "authenticator: PasswordAuthenticator" >> /etc/cassandra/cassandra.yaml
+
+
+
     
