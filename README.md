@@ -22,4 +22,6 @@ RUN /etc/init.d/cassandra stop
 RUN /etc/init.d/cassandra start
 
 
+#login
+USER cassandra -e "CREATE USER mohsen WITH PASSWORD 'mortezaie1373' SUPERUSER;"
     
