@@ -17,6 +17,9 @@ RUN apt-get install -y cassandra
 #Cassandra Authentication
 RUN  echo "authenticator: PasswordAuthenticator" >> /etc/cassandra/cassandra.yaml
 
+#reset cassandra
+RUN /etc/init.d/cassandra stop
+RUN /etc/init.d/cassandra start
 
 
     
