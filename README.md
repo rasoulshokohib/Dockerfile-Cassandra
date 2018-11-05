@@ -52,3 +52,9 @@ USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_4h (clos
 USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_1h (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
 
 USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_15m (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
+
+EXPOSE 7000 7001 7199 9042 9160
+
+CMD ["cassandra"]
+
+
