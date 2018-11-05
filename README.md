@@ -25,3 +25,30 @@ RUN /etc/init.d/cassandra start
 #login
 USER cassandra -e "CREATE USER mohsen WITH PASSWORD 'mortezaie1373' SUPERUSER;"
     
+ENV USERNAME mohsen
+ENV PASS mortezaie1373
+
+#login
+USER -ucassandra -pcassandra -e "CREATE USER ${USERNAME} WITH PASSWORD '${PASS}' SUPERUSER;"
+
+#create KEYSPACE
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE KEYSPACE traderawdata WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 1};"
+
+#create tables
+cqlsh -u mohsen -p mortezaie1373 -e "CREATE TABLE traderawdata.raw_1d (open_time bigint,close_time bigint,symboltext,closedouble,high double,low double,number_of_trades int,open double,quote_asset_volume double,taker_buy_base_asset_volume double,taker_buy_qoute_asset_volume double,volume double,PRIMARY KEY (open_time, close_time, symbol)) WITH CLUSTERING ORDERBY (close_time ASC, symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.raw_4h (open_time bigint,close_time bigint,symboltext,closedouble,high double,low double,number_of_trades int,open double,quote_asset_volume double,taker_buy_base_asset_volume double,taker_buy_qoute_asset_volume double,volume double,PRIMARY KEY (open_time, close_time, symbol)) WITH CLUSTERING ORDERBY (close_time ASC, symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.raw_1h (open_time bigint,close_time bigint,symboltext,closedouble,high double,low double,number_of_trades int,open double,quote_asset_volume double,taker_buy_base_asset_volume double,taker_buy_qoute_asset_volume double,volume double,PRIMARY KEY (open_time, close_time, symbol)) WITH CLUSTERING ORDERBY (close_time ASC, symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.raw_15m (open_time bigint,close_time bigint,symboltext,closedouble,high double,low double,number_of_trades int,open double,quote_asset_volume double,taker_buy_base_asset_volume double,taker_buy_qoute_asset_volume double,volume double,PRIMARY KEY (open_time, close_time, symbol)) WITH CLUSTERING ORDERBY (close_time ASC, symbol ASC);"
+
+
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_1d (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_4h (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_1h (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
+
+USER -u${USERNAME} -p${mortezaie1373} -e "CREATE TABLE traderawdata.ema_15m (close_time bigint,symbol text,ema map<bigint, double>,high double,low double,PRIMARY KEY (close_time, symbol)) WITH CLUSTERING ORDER BY (symbol ASC);"
